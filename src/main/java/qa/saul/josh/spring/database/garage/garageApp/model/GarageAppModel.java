@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -35,12 +37,12 @@ public class GarageAppModel implements Serializable {
 	private String colour;
 	
 	@Column(nullable = false, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
 	@CreatedDate
 	private Date creationDate;
 	
 	@Column(nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@UpdateTimestamp
 	@LastModifiedDate
 	private Date lastModified;
 

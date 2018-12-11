@@ -37,11 +37,37 @@ public class GarageAppController {
 	
 	
 	//Method to get a vehicle
-	@GetMapping("vehicle/{idvehicle}")
+	@GetMapping("vehicle_id/{idvehicle}")
 	public GarageAppModel getVehiclebyID(@PathVariable(value = "idvehicle")Long vehicleID) {
 		return Repository.findById(vehicleID).orElseThrow(()->new ResourceNotFoundException("GarageAppModel", "idvehicle",vehicleID));
 		}
 	
+	
+	// Method get vehicles by Manufacturer
+	@GetMapping("vehicle_manufacturer/{manufacturer}")
+	public List<GarageAppModel> getVehicleByManufacturer(@PathVariable(value = "manufacturer")String manufacturer) {
+		return Repository.findByManufacturer(manufacturer);
+	}
+	
+		
+		
+	// Method get vehicles by Model
+	@GetMapping("vehicle_model/{model}")
+	public List<GarageAppModel> getVehicleByModel(@PathVariable(value = "model")String model) {
+		return Repository.findByModel(model);
+	}	
+		
+		
+		
+	// Method get vehicles by Colour
+	@GetMapping("vehicle_colour/{colour}")
+	public List<GarageAppModel> getVehicleByColour(@PathVariable(value = "colour")String colour) {
+		return Repository.findByColour(colour);
+	}	
+		
+		
+		
+		
 	//Method to get all vehicles
 	@GetMapping("/vehicle")
 	public List<GarageAppModel> getAllVehicles(){
