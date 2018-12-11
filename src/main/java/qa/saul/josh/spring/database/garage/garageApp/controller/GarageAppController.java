@@ -103,7 +103,10 @@ public class GarageAppController {
 		return ResponseEntity.ok().build();
 	}
 	
-	
-	
-
+	//Method to remove all vehicles from the database
+	@DeleteMapping("/vehicle")
+	public List<GarageAppModel> deleteAllVehicles(){
+		Repository.deleteAll();
+		return null;
+	}
 }
