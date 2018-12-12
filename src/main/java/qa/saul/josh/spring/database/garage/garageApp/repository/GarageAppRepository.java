@@ -10,6 +10,7 @@ import qa.saul.josh.spring.database.garage.garageApp.model.GarageAppModel;
 @Repository
 public interface GarageAppRepository extends JpaRepository<GarageAppModel, Long>{
 	
+	List<GarageAppModel> findByvehicletype(String vehicletype);
 	List<GarageAppModel> findByManufacturer(String manufacturer);
 	List<GarageAppModel> findByModel(String model);
 	List<GarageAppModel> findByColour(String colour);

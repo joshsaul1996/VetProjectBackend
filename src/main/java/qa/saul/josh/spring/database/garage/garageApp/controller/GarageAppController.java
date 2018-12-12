@@ -37,14 +37,20 @@ public class GarageAppController {
 	
 	
 	//Method to get a vehicle
-	@GetMapping("vehicle_id/{idvehicle}")
+	@GetMapping("vehicleid/{idvehicle}")
 	public GarageAppModel getVehiclebyID(@PathVariable(value = "idvehicle")Long vehicleID) {
 		return Repository.findById(vehicleID).orElseThrow(()->new ResourceNotFoundException("GarageAppModel", "idvehicle",vehicleID));
-		}
+	}
+	
+	// Method get vehicles by Type
+	@GetMapping("vehicletype/{vehicletype}")
+	public List<GarageAppModel> getVehicleByType(@PathVariable(value = "vehicletype")String vehicletype) {
+		return Repository.findByvehicletype(vehicletype);
+	}
 	
 	
 	// Method get vehicles by Manufacturer
-	@GetMapping("vehicle_manufacturer/{manufacturer}")
+	@GetMapping("vehiclemanufacturer/{manufacturer}")
 	public List<GarageAppModel> getVehicleByManufacturer(@PathVariable(value = "manufacturer")String manufacturer) {
 		return Repository.findByManufacturer(manufacturer);
 	}
@@ -52,7 +58,7 @@ public class GarageAppController {
 		
 		
 	// Method get vehicles by Model
-	@GetMapping("vehicle_model/{model}")
+	@GetMapping("vehiclemodel/{model}")
 	public List<GarageAppModel> getVehicleByModel(@PathVariable(value = "model")String model) {
 		return Repository.findByModel(model);
 	}	
@@ -60,7 +66,7 @@ public class GarageAppController {
 		
 		
 	// Method get vehicles by Colour
-	@GetMapping("vehicle_colour/{colour}")
+	@GetMapping("vehiclecolour/{colour}")
 	public List<GarageAppModel> getVehicleByColour(@PathVariable(value = "colour")String colour) {
 		return Repository.findByColour(colour);
 	}	
@@ -82,6 +88,7 @@ public class GarageAppController {
 		GarageAppModel mSDM = Repository.findById(vehicleID).orElseThrow(()-> new ResourceNotFoundException("Vehicle","idvehicle",vehicleID));
 		
 		mSDM.setVehiclereg(vehicleDetails.getVehiclereg());
+		mSDM.setVehicletype(vehicleDetails.getVehicletype());
 		mSDM.setManufacturer(vehicleDetails.getManufacturer());
 		mSDM.setModel(vehicleDetails.getModel());
 		mSDM.setColour(vehicleDetails.getColour());
@@ -103,10 +110,20 @@ public class GarageAppController {
 		return ResponseEntity.ok().build();
 	}
 	
+	// Method delete vehicles by Type
+	@DeleteMapping("/vehicletype/{vehicletype}")
+	public ResponseEntity<?> deleteVehicleByType(@PathVariable(value = "vehicletype") String vehicleType){
+		List<GarageAppModel> mSDM = Repository.findByvehicletype(vehicleType);
+		
+		
+		Repository.deleteAll(mSDM);
+		return ResponseEntity.ok().build();
+	}
+	
 	//Method to remove all vehicles from the database
 	@DeleteMapping("/vehicle")
-	public List<GarageAppModel> deleteAllVehicles(){
+	public ResponseEntity<?> deleteAllVehicles(){
 		Repository.deleteAll();
-		return null;
+		return ResponseEntity.ok().build();
 	}
 }

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name = "garage")
+@Table(name = "vehicles")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value= {"creationDate","lastModified"},allowGetters = true)
 public class GarageAppModel implements Serializable {
@@ -30,18 +30,21 @@ public class GarageAppModel implements Serializable {
 	private String vehiclereg;
 	
 	@NotBlank
+	private String vehicletype;
+	
+	@NotBlank
 	private String manufacturer;
 	
 	private String model;
 	
 	private String colour;
 	
-	@Column(nullable = false, updatable = false)
+	@Column(nullable = true, updatable = false)
 	@CreationTimestamp
 	@CreatedDate
 	private Date creationDate;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	@UpdateTimestamp
 	@LastModifiedDate
 	private Date lastModified;
@@ -60,6 +63,14 @@ public class GarageAppModel implements Serializable {
 
 	public void setVehiclereg(String vehiclereg) {
 		this.vehiclereg = vehiclereg;
+	}
+
+	public String getVehicletype() {
+		return vehicletype;
+	}
+
+	public void setVehicletype(String vehicletype) {
+		this.vehicletype = vehicletype;
 	}
 
 	public String getManufacturer() {
@@ -101,6 +112,10 @@ public class GarageAppModel implements Serializable {
 	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
+
+
+	
+	
 }
 	
 	
