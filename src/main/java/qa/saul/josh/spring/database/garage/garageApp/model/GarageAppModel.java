@@ -27,10 +27,10 @@ public class GarageAppModel implements Serializable {
 	private Long idvehicle;
 	
 	@NotBlank
-	private String vehiclereg;
+	private String vehicleReg;
 	
 	@NotBlank
-	private String vehicletype;
+	private String vehicleType;
 	
 	@NotBlank
 	private String manufacturer;
@@ -48,29 +48,41 @@ public class GarageAppModel implements Serializable {
 	@UpdateTimestamp
 	@LastModifiedDate
 	private Date lastModified;
+	
+	public GarageAppModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
+		this.vehicleReg = vehicleReg;
+		this.vehicleType = vehicleType;
+		this.manufacturer = manufacturer;
+		this.model = model;
+		this.colour = colour;
+	}
+	  
+	public GarageAppModel() {
+		
+	}
 
 	public Long getIdvehicle() {
 		return idvehicle;
 	}
 
-	public void setIdvehicle(Long idvehicle) {
-		this.idvehicle = idvehicle;
+	public void setIdvehicle(Long idVehicle) {
+		this.idvehicle = idVehicle;
 	}
 
 	public String getVehiclereg() {
-		return vehiclereg;
+		return vehicleReg;
 	}
 
-	public void setVehiclereg(String vehiclereg) {
-		this.vehiclereg = vehiclereg;
+	public void setVehiclereg(String vehicleReg) {
+		this.vehicleReg = vehicleReg;
 	}
 
 	public String getVehicletype() {
-		return vehicletype;
+		return vehicleType;
 	}
 
-	public void setVehicletype(String vehicletype) {
-		this.vehicletype = vehicletype;
+	public void setVehicletype(String vehicleType) {
+		this.vehicleType = vehicleType;
 	}
 
 	public String getManufacturer() {

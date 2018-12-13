@@ -12,3 +12,4 @@ public class GarageAppApplication {
 		SpringApplication.run(GarageAppApplication.class, args);
 	}
 }
+

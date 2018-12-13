@@ -45,7 +45,7 @@ public class GarageAppController {
 	// Method get vehicles by Type
 	@GetMapping("vehicletype/{vehicletype}")
 	public List<GarageAppModel> getVehicleByType(@PathVariable(value = "vehicletype")String vehicletype) {
-		return Repository.findByvehicletype(vehicletype);
+		return Repository.findByVehicleType(vehicletype);
 	}
 	
 	
@@ -113,9 +113,8 @@ public class GarageAppController {
 	// Method delete vehicles by Type
 	@DeleteMapping("/vehicletype/{vehicletype}")
 	public ResponseEntity<?> deleteVehicleByType(@PathVariable(value = "vehicletype") String vehicleType){
-		List<GarageAppModel> mSDM = Repository.findByvehicletype(vehicleType);
-		
-		
+		List<GarageAppModel> mSDM = Repository.findByVehicleType(vehicleType);
+		 
 		Repository.deleteAll(mSDM);
 		return ResponseEntity.ok().build();
 	}
