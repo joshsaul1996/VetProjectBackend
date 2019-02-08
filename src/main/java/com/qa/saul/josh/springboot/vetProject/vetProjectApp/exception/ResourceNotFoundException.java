@@ -1,4 +1,4 @@
-package qa.saul.josh.spring.database.garage.garageApp.exception;
+package com.qa.saul.josh.springboot.vetProject.vetProjectApp.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

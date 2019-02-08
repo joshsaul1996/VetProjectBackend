@@ -11,12 +11,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import qa.saul.josh.spring.database.garage.garageApp.GarageAppApplication;
-import qa.saul.josh.spring.database.garage.garageApp.model.GarageAppModel;
-import qa.saul.josh.spring.database.garage.garageApp.repository.GarageAppRepository;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.VetProjectApplication;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.model.OwnerModel;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.GarageAppRepository;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {GarageAppApplication.class})
+@ContextConfiguration(classes = {VetProjectApplication.class})
 //@SpringBootTest(classes = { GarageAppApplication.class})
 @DataJpaTest 
 public class RepositoryTest {
@@ -30,7 +30,7 @@ public class RepositoryTest {
 	
 	@Test
 	public void retrieveByIdTest() {
-		GarageAppModel model = new GarageAppModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
+		OwnerModel model = new OwnerModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
 		entityManager.persist(model);
 		entityManager.flush();
 		assertTrue(myRepo.findById(model.getIdvehicle()).isPresent());
@@ -38,7 +38,7 @@ public class RepositoryTest {
 	 
 	@Test
 	public void retrieveByTypeTest() {
-		GarageAppModel model = new GarageAppModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
+		OwnerModel model = new OwnerModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
 		entityManager.persist(model);
 		entityManager.flush();
 		assertTrue(myRepo.findByVehicleType(model.getVehicletype()).stream().findAny().isPresent());
@@ -47,7 +47,7 @@ public class RepositoryTest {
 	
 	@Test
 	public void retrieveByManufacturerTest() {
-		GarageAppModel model = new GarageAppModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
+		OwnerModel model = new OwnerModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
 		entityManager.persist(model);
 		entityManager.flush();
 		assertTrue(myRepo.findByManufacturer(model.getManufacturer()).stream().findAny().isPresent());
@@ -57,7 +57,7 @@ public class RepositoryTest {
 	
 	@Test
 	public void retrieveByModelTest() {
-		GarageAppModel model = new GarageAppModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
+		OwnerModel model = new OwnerModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
 		entityManager.persist(model);
 		entityManager.flush();
 		assertTrue(myRepo.findByModel(model.getModel()).stream().findAny().isPresent());
@@ -65,7 +65,7 @@ public class RepositoryTest {
 	
 	@Test
 	public void retrieveByColourTest() {
-		GarageAppModel model = new GarageAppModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
+		OwnerModel model = new OwnerModel("HJ67 9YT", "Car", "Audi", "RS6", "Grey");
 		entityManager.persist(model);
 		entityManager.flush();
 		assertTrue(myRepo.findByColour(model.getColour()).stream().findAny().isPresent());

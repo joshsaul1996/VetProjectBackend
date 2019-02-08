@@ -1,4 +1,4 @@
-package qa.saul.josh.spring.database.garage.garageApp.model;
+package com.qa.saul.josh.springboot.vetProject.vetProjectApp.model;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "vehicles")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value= {"creationDate","lastModified"},allowGetters = true)
-public class GarageAppModel implements Serializable {
+public class AppointmentModel implements Serializable {
 	
 	
 	@Id
@@ -49,7 +49,7 @@ public class GarageAppModel implements Serializable {
 	@LastModifiedDate
 	private Date lastModified;
 	
-	public GarageAppModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
+	public AppointmentModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
 		this.vehicleReg = vehicleReg;
 		this.vehicleType = vehicleType;
 		this.manufacturer = manufacturer;
@@ -57,7 +57,7 @@ public class GarageAppModel implements Serializable {
 		this.colour = colour;
 	}
 	  
-	public GarageAppModel() {
+	public AppointmentModel() {
 		
 	}
 
