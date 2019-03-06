@@ -1,132 +1,149 @@
 package com.qa.saul.josh.springboot.vetProject.vetProjectApp.model;
 import java.io.Serializable;
-import java.util.Date;
 
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.OwnerRepository;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.PetRepository;
+
 
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "owner")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value= {"creationDate","lastModified"},allowGetters = true)
 public class OwnerModel implements Serializable {
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idvehicle;
+    @Column(name = "owner_id")
+	private Long owner_id;
 	
-	@NotBlank
-	private String vehicleReg;
+	private String first_name;
 	
-	@NotBlank
-	private String vehicleType;
+	private String last_name;
 	
-	@NotBlank
-	private String manufacturer;
+	@Email
+	private String email;
 	
-	private String model;
+	private String landline_number;
 	
-	private String colour;
+	private String mobile_number;
 	
-	@Column(nullable = true, updatable = false)
-	@CreationTimestamp
-	@CreatedDate
-	private Date creationDate;
-	
-	@Column(nullable = true)
-	@UpdateTimestamp
-	@LastModifiedDate
-	private Date lastModified;
-	
-	public OwnerModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
-		this.vehicleReg = vehicleReg;
-		this.vehicleType = vehicleType;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.colour = colour;
+	private String address_id;
+
+
+	public OwnerModel(String first_name, String last_name, @Email String email, String landline_number,
+			String mobile_number,String address_id, Set<PetModel> pets) {
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.landline_number = landline_number;
+		this.mobile_number = mobile_number;
+		this.address_id = address_id;
 	}
-	  
+
+
+
 	public OwnerModel() {
 		
 	}
 
-	public Long getIdvehicle() {
-		return idvehicle;
+
+
+	public Long getOwner_id() {
+		return owner_id;
 	}
 
-	public void setIdvehicle(Long idVehicle) {
-		this.idvehicle = idVehicle;
+
+
+	public void setOwner_id(Long owner_id) {
+		this.owner_id = owner_id;
 	}
 
-	public String getVehiclereg() {
-		return vehicleReg;
+
+
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setVehiclereg(String vehicleReg) {
-		this.vehicleReg = vehicleReg;
+
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
 	}
 
-	public String getVehicletype() {
-		return vehicleType;
+
+
+	public String getLast_name() {
+		return last_name;
 	}
 
-	public void setVehicletype(String vehicleType) {
-		this.vehicleType = vehicleType;
+
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 
-	public String getManufacturer() {
-		return manufacturer;
+
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getModel() {
-		return model;
+
+
+	public String getLandline_number() {
+		return landline_number;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+
+
+	public void setLandline_number(String landline_number) {
+		this.landline_number = landline_number;
 	}
 
-	public String getColour() {
-		return colour;
+
+
+	public String getMobile_number() {
+		return mobile_number;
 	}
 
-	public void setColour(String colour) {
-		this.colour = colour;
+
+
+	public void setMobile_number(String mobile_number) {
+		this.mobile_number = mobile_number;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+
+	public String getAddress_id() {
+		return address_id;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
 
-	public Date getLastModified() {
-		return lastModified;
-	}
 
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
+	public void setAddress_id(String address_id) {
+		this.address_id = address_id;
 	}
-
 
 	
+	
+
 	
 }
 	

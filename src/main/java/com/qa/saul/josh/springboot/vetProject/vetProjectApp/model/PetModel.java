@@ -1,130 +1,134 @@
 package com.qa.saul.josh.springboot.vetProject.vetProjectApp.model;
 import java.io.Serializable;
-import java.util.Date;
+
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "pet")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value= {"creationDate","lastModified"},allowGetters = true)
-public class PetModel implements Serializable {
+public class PetModel {
 	
 	
 	@Id
+	@Column(name = "pet_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idvehicle;
+	private Long pet_id;
 	
-	@NotBlank
-	private String vehicleReg;
+	private String name;
 	
-	@NotBlank
-	private String vehicleType;
+	private String microchip_number;
 	
-	@NotBlank
-	private String manufacturer;
+	private String species;
 	
-	private String model;
+	private String breed;
 	
-	private String colour;
+	private int age;
 	
-	@Column(nullable = true, updatable = false)
-	@CreationTimestamp
-	@CreatedDate
-	private Date creationDate;
+	private String medical_history;
 	
-	@Column(nullable = true)
-	@UpdateTimestamp
-	@LastModifiedDate
-	private Date lastModified;
+	private String prescriptions;
 	
-	public PetModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
-		this.vehicleReg = vehicleReg;
-		this.vehicleType = vehicleType;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.colour = colour;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "owner_id", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JsonIgnore
+	private OwnerModel owner;
+
+	public Long getPet_id() {
+		return pet_id;
 	}
-	  
+
+	public void setPet_id(Long pet_id) {
+		this.pet_id = pet_id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMicrochip_number() {
+		return microchip_number;
+	}
+
+	public void setMicrochip_number(String microchip_number) {
+		this.microchip_number = microchip_number;
+	}
+
+	public String getSpecies() {
+		return species;
+	}
+
+	public void setSpecies(String species) {
+		this.species = species;
+	}
+
+	public String getBreed() {
+		return breed;
+	}
+
+	public void setBreed(String breed) {
+		this.breed = breed;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getMedical_history() {
+		return medical_history;
+	}
+
+	public void setMedical_history(String medical_history) {
+		this.medical_history = medical_history;
+	}
+
+	public String getPrescriptions() {
+		return prescriptions;
+	}
+
+	public void setPrescriptions(String prescriptions) {
+		this.prescriptions = prescriptions;
+	}
+
+	public OwnerModel getOwner() {
+		return owner;
+	}
 	public PetModel() {
 		
 	}
+	
 
-	public Long getIdvehicle() {
-		return idvehicle;
+	public PetModel( String name, String microchip_number, String species, String breed, int age,
+			String medical_history, String prescriptions, OwnerModel owner) {
+	
+		this.name = name;
+		this.microchip_number = microchip_number;
+		this.species = species;
+		this.breed = breed;
+		this.age = age;
+		this.medical_history = medical_history;
+		this.prescriptions = prescriptions;
+		this.owner = owner;
 	}
 
-	public void setIdvehicle(Long idVehicle) {
-		this.idvehicle = idVehicle;
+	public void setOwner(OwnerModel owner) {
+		this.owner = owner;
 	}
-
-	public String getVehiclereg() {
-		return vehicleReg;
-	}
-
-	public void setVehiclereg(String vehicleReg) {
-		this.vehicleReg = vehicleReg;
-	}
-
-	public String getVehicletype() {
-		return vehicleType;
-	}
-
-	public void setVehicletype(String vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getColour() {
-		return colour;
-	}
-
-	public void setColour(String colour) {
-		this.colour = colour;
-	}
-
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public Date getLastModified() {
-		return lastModified;
-	}
-
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
-	}
-
 
 	
 	

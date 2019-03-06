@@ -6,127 +6,82 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import org.apache.tomcat.jni.Address;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "appointment")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value= {"creationDate","lastModified"},allowGetters = true)
 public class AppointmentModel implements Serializable {
 	
 	
 	@Id
+	@Column(name = "appointment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idvehicle;
+	private Long appointment_id;
 	
 	@NotBlank
-	private String vehicleReg;
+	private String reason;
 	
 	@NotBlank
-	private String vehicleType;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a z")
+	private Date date;
 	
 	@NotBlank
-	private String manufacturer;
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "vet_vn_id", nullable = false)
+	private VetVNModel vetVN;
 	
-	private String model;
-	
-	private String colour;
-	
-	@Column(nullable = true, updatable = false)
-	@CreationTimestamp
-	@CreatedDate
-	private Date creationDate;
-	
-	@Column(nullable = true)
-	@UpdateTimestamp
-	@LastModifiedDate
-	private Date lastModified;
-	
-	public AppointmentModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
-		this.vehicleReg = vehicleReg;
-		this.vehicleType = vehicleType;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.colour = colour;
-	}
 	  
 	public AppointmentModel() {
 		
 	}
 
-	public Long getIdvehicle() {
-		return idvehicle;
-	}
 
-	public void setIdvehicle(Long idVehicle) {
-		this.idvehicle = idVehicle;
-	}
-
-	public String getVehiclereg() {
-		return vehicleReg;
-	}
-
-	public void setVehiclereg(String vehicleReg) {
-		this.vehicleReg = vehicleReg;
-	}
-
-	public String getVehicletype() {
-		return vehicleType;
-	}
-
-	public void setVehicletype(String vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getColour() {
-		return colour;
-	}
-
-	public void setColour(String colour) {
-		this.colour = colour;
-	}
-
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public Date getLastModified() {
-		return lastModified;
-	}
-
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
+	public AppointmentModel(@NotBlank String reason, @NotBlank Date date, @NotBlank VetVNModel vetVN,
+			@NotBlank PetModel pet) {
+		this.reason = reason;
+		this.date = date;
+		this.vetVN = vetVN;
 	}
 
 
-	
+	public String getReason() {
+		return reason;
+	}
+
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
+	public VetVNModel getVetVN() {
+		return vetVN;
+	}
+
+
+	public void setVetVN(VetVNModel vetVN) {
+		this.vetVN = vetVN;
+	}
 	
 }
 	

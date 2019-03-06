@@ -8,12 +8,12 @@
 		<version>2.1.1.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>qa.saul.josh.spring.database.garage</groupId>
-	<artifactId>garageApp</artifactId>
+	<groupId>com.qa.saul.josh.springboot.vetProject</groupId>
+	<artifactId>vetProjectApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>garageApp</name>
-	<description>Garage Database interaction</description>
+	<name>com.qa.saul.josh.springboot.vetProject.vetProjectApp</name>
+	<description>Vet database interaction</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -50,12 +50,18 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
-<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.12</version>
-    <scope>test</scope>
-</dependency>
+	<dependency>
+    	<groupId>junit</groupId>
+    	<artifactId>junit</artifactId>
+   	 	<scope>test</scope>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/com.allenru/cross-origin -->
+		<dependency>
+		    <groupId>com.allenru</groupId>
+		    <artifactId>cross-origin</artifactId>
+		    <version>1.0.1</version>
+		</dependency>
 		
 	</dependencies>
 

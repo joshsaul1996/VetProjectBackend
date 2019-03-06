@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.saul.josh.springboot.vetProject.vetProjectApp.exception.ResourceNotFoundException;
-import com.qa.saul.josh.springboot.vetProject.vetProjectApp.model.OwnerModel;
-import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.GarageAppRepository;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.model.VetVNModel;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.VetVNRepository;
 
 
 
@@ -26,103 +26,56 @@ import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.GarageApp
 public class VetVNController {
 	
 	@Autowired
-	GarageAppRepository Repository;
+	VetVNRepository Repository;
 	
 	
-	//Method to create a vehicle
-	@PostMapping("/vehicle")
-	public OwnerModel createVehicle(@Valid @RequestBody OwnerModel mSDM) {
+	//Method to create a VetVN
+	@PostMapping("/createVetVN")
+	public VetVNModel createVetVN(@Valid @RequestBody VetVNModel mSDM) {
 		return Repository.save(mSDM);
 	}
 	
 	
-	//Method to get a vehicle
-	@GetMapping("vehicleid/{idvehicle}")
-	public OwnerModel getVehiclebyID(@PathVariable(value = "idvehicle")Long vehicleID) {
-		return Repository.findById(vehicleID).orElseThrow(()->new ResourceNotFoundException("GarageAppModel", "idvehicle",vehicleID));
+	//Method to get a  VetVN
+	@GetMapping("VetVN/{vid}")
+	public VetVNModel getVetVN(@PathVariable(value = "vid")Long vid) {
+		return Repository.findById(vid).orElseThrow(()->new ResourceNotFoundException("VetVNModel", "vid",vid));
 	}
 	
-	// Method get vehicles by Type
-	@GetMapping("vehicletype/{vehicletype}")
-	public List<OwnerModel> getVehicleByType(@PathVariable(value = "vehicletype")String vehicletype) {
-		return Repository.findByVehicleType(vehicletype);
-	}
-	
-	
-	// Method get vehicles by Manufacturer
-	@GetMapping("vehiclemanufacturer/{manufacturer}")
-	public List<OwnerModel> getVehicleByManufacturer(@PathVariable(value = "manufacturer")String manufacturer) {
-		return Repository.findByManufacturer(manufacturer);
-	}
-	
-		
-		
-	// Method get vehicles by Model
-	@GetMapping("vehiclemodel/{model}")
-	public List<OwnerModel> getVehicleByModel(@PathVariable(value = "model")String model) {
-		return Repository.findByModel(model);
-	}	
-		
-		
-		
-	// Method get vehicles by Colour
-	@GetMapping("vehiclecolour/{colour}")
-	public List<OwnerModel> getVehicleByColour(@PathVariable(value = "colour")String colour) {
-		return Repository.findByColour(colour);
-	}	
-		
-		
-		
-		
-	//Method to get all vehicles
-	@GetMapping("/vehicle")
-	public List<OwnerModel> getAllVehicles(){
+	//Method to get all  VetVN
+	@GetMapping("/getAllVetVN")
+	public List<VetVNModel> getAllVetVN(){
 		return Repository.findAll();
 	}
 	
 	
-	//Method to update a vehicle
-	@PutMapping("/vehicle/{idvehicle}")
-	public OwnerModel updateVehicle(@PathVariable(value = "idvehicle") Long vehicleID,
-			@Valid @RequestBody OwnerModel vehicleDetails) {
-		OwnerModel mSDM = Repository.findById(vehicleID).orElseThrow(()-> new ResourceNotFoundException("Vehicle","idvehicle",vehicleID));
+	//Method to update a  VetVN
+	@PutMapping("/updateVetVN/{vid}")
+	public VetVNModel updateVetVN(@PathVariable(value = "vid") Long vid,
+			@Valid @RequestBody VetVNModel vetVNDetails) {
+		VetVNModel mSDM = Repository.findById(vid).orElseThrow(()-> new ResourceNotFoundException("VetVN","vid",vid));
 		
-		mSDM.setVehiclereg(vehicleDetails.getVehiclereg());
-		mSDM.setVehicletype(vehicleDetails.getVehicletype());
-		mSDM.setManufacturer(vehicleDetails.getManufacturer());
-		mSDM.setModel(vehicleDetails.getModel());
-		mSDM.setColour(vehicleDetails.getColour());
+		mSDM.setTitle(vetVNDetails.getTitle());
+		mSDM.setFirst_name(vetVNDetails.getFirst_name());
+		mSDM.setLast_name(vetVNDetails.getLast_name());
+		mSDM.setRole(vetVNDetails.getRole());
+		mSDM.setSpecialities(vetVNDetails.getSpecialities());
 		
 		
-		OwnerModel updateData = Repository.save(mSDM);
+		VetVNModel updateData = Repository.save(mSDM);
 		return updateData;
 		
 	}
 	
 	
-	//Method to remove a vehicle
-	@DeleteMapping("/vehicle/{idvehicle}")
-	public ResponseEntity<?> deleteVehicle(@PathVariable(value = "idvehicle") Long vehicleID){
-		OwnerModel mSDM = Repository.findById(vehicleID).orElseThrow(()->new ResourceNotFoundException("Vehicle","idvehicle",vehicleID));
+	//Method to remove a  VetVN
+	@DeleteMapping("/deleteVetVN/{vid}")
+	public ResponseEntity<?> deleteVetVN(@PathVariable(value = "vid") Long vid){
+		VetVNModel mSDM = Repository.findById(vid).orElseThrow(()->new ResourceNotFoundException("VetVN","vid",vid));
 		
 		
 		Repository.delete(mSDM);
 		return ResponseEntity.ok().build();
 	}
 	
-	// Method delete vehicles by Type
-	@DeleteMapping("/vehicletype/{vehicletype}")
-	public ResponseEntity<?> deleteVehicleByType(@PathVariable(value = "vehicletype") String vehicleType){
-		List<OwnerModel> mSDM = Repository.findByVehicleType(vehicleType);
-		 
-		Repository.deleteAll(mSDM);
-		return ResponseEntity.ok().build();
-	}
-	
-	//Method to remove all vehicles from the database
-	@DeleteMapping("/vehicle")
-	public ResponseEntity<?> deleteAllVehicles(){
-		Repository.deleteAll();
-		return ResponseEntity.ok().build();
-	}
 }

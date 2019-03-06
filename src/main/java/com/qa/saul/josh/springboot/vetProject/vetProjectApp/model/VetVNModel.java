@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+import org.apache.tomcat.jni.Address;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -16,114 +17,129 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "vet_vn")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value= {"creationDate","lastModified"},allowGetters = true)
 public class VetVNModel implements Serializable {
 	
 	
 	@Id
+	@Column(name = "vid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idvehicle;
+	private Long vid;
 	
 	@NotBlank
-	private String vehicleReg;
+	private String title;
 	
 	@NotBlank
-	private String vehicleType;
+	private String first_name;
 	
 	@NotBlank
-	private String manufacturer;
+	private String last_name;
 	
-	private String model;
+	@NotBlank
+	private String role;
 	
-	private String colour;
+	private String specialities;
 	
-	@Column(nullable = true, updatable = false)
-	@CreationTimestamp
-	@CreatedDate
-	private Date creationDate;
+	@OneToOne(fetch=FetchType.LAZY,
+			cascade = CascadeType.ALL,
+			mappedBy = "vetVN")
+	private AppointmentModel appointmentModel;
+
 	
-	@Column(nullable = true)
-	@UpdateTimestamp
-	@LastModifiedDate
-	private Date lastModified;
 	
-	public VetVNModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
-		this.vehicleReg = vehicleReg;
-		this.vehicleType = vehicleType;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.colour = colour;
+	public VetVNModel(@NotBlank String title, @NotBlank String first_name, @NotBlank String last_name,
+			@NotBlank String role, String specialities) {
+		this.title = title;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.role = role;
+		this.specialities = specialities;
+
 	}
-	  
-	public VetVNModel() {
+
+
+
+	public VetVNModel(){
 		
 	}
 
-	public Long getIdvehicle() {
-		return idvehicle;
+
+
+	public Long getVid() {
+		return vid;
 	}
 
-	public void setIdvehicle(Long idVehicle) {
-		this.idvehicle = idVehicle;
+
+
+	public void setVid(Long vid) {
+		this.vid = vid;
 	}
 
-	public String getVehiclereg() {
-		return vehicleReg;
+
+
+	public String getTitle() {
+		return title;
 	}
 
-	public void setVehiclereg(String vehicleReg) {
-		this.vehicleReg = vehicleReg;
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getVehicletype() {
-		return vehicleType;
+
+
+	public String getFirst_name() {
+		return first_name;
 	}
 
-	public void setVehicletype(String vehicleType) {
-		this.vehicleType = vehicleType;
+
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
 	}
 
-	public String getManufacturer() {
-		return manufacturer;
+
+
+	public String getLast_name() {
+		return last_name;
 	}
 
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
+
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
 
-	public String getModel() {
-		return model;
+
+
+	public String getRole() {
+		return role;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public String getColour() {
-		return colour;
+
+
+	public String getSpecialities() {
+		return specialities;
 	}
 
-	public void setColour(String colour) {
-		this.colour = colour;
+
+
+	public void setSpecialities(String specialities) {
+		this.specialities = specialities;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public Date getLastModified() {
-		return lastModified;
-	}
-
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
-	}
+	
+	
+	
+	
 
 
 	

@@ -1,130 +1,156 @@
 package com.qa.saul.josh.springboot.vetProject.vetProjectApp.model;
 import java.io.Serializable;
-import java.util.Date;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name = "vehicles")
+@Table(name = "address")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value= {"creationDate","lastModified"},allowGetters = true)
 public class AddressModel implements Serializable {
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idvehicle;
+    @Column(name = "address_id")
+    private Long address_id;
 	
-	@NotBlank
-	private String vehicleReg;
 	
-	@NotBlank
-	private String vehicleType;
+    private Integer house_number;
 	
-	@NotBlank
-	private String manufacturer;
 	
-	private String model;
+	private String address_line_1;
 	
-	private String colour;
 	
-	@Column(nullable = true, updatable = false)
-	@CreationTimestamp
-	@CreatedDate
-	private Date creationDate;
+	private String address_line_2;
 	
-	@Column(nullable = true)
-	@UpdateTimestamp
-	@LastModifiedDate
-	private Date lastModified;
 	
-	public AddressModel(String vehicleReg, String vehicleType,String manufacturer, String model, String colour) {
-		this.vehicleReg = vehicleReg;
-		this.vehicleType = vehicleType;
-		this.manufacturer = manufacturer;
-		this.model = model;
-		this.colour = colour;
-	}
+	private String address_line_3;
+	
+	
+	private String city;
+	
+	
+	private String county;
+	
+	
+	private String postcode;
+	
+	
+	private String country;
+	
 	  
 	public AddressModel() {
 		
 	}
 
-	public Long getIdvehicle() {
-		return idvehicle;
+
+	public AddressModel( Integer house_number,  String address_line_1, String address_line_2,
+			String address_line_3,  String city,  String county,  String postcode,
+			 String country) {
+		this.house_number = house_number;
+		this.address_line_1 = address_line_1;
+		this.address_line_2 = address_line_2;
+		this.address_line_3 = address_line_3;
+		this.city = city;
+		this.county = county;
+		this.postcode = postcode;
+		this.country = country;
 	}
 
-	public void setIdvehicle(Long idVehicle) {
-		this.idvehicle = idVehicle;
+
+	public Long getAddressid() {
+		return address_id;
 	}
 
-	public String getVehiclereg() {
-		return vehicleReg;
+
+	public void setAddressid(Long address_id) {
+		this.address_id = address_id;
 	}
 
-	public void setVehiclereg(String vehicleReg) {
-		this.vehicleReg = vehicleReg;
+
+	public Integer getHouse_number() {
+		return house_number;
 	}
 
-	public String getVehicletype() {
-		return vehicleType;
+
+	public void setHouse_number(Integer house_number) {
+		this.house_number = house_number;
 	}
 
-	public void setVehicletype(String vehicleType) {
-		this.vehicleType = vehicleType;
+
+	public String getAddress_line_1() {
+		return address_line_1;
 	}
 
-	public String getManufacturer() {
-		return manufacturer;
+
+	public void setAddress_line_1(String address_line_1) {
+		this.address_line_1 = address_line_1;
 	}
 
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
+
+	public String getAddress_line_2() {
+		return address_line_2;
 	}
 
-	public String getModel() {
-		return model;
+
+	public void setAddress_line_2(String address_line_2) {
+		this.address_line_2 = address_line_2;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+
+	public String getAddress_line_3() {
+		return address_line_3;
 	}
 
-	public String getColour() {
-		return colour;
+
+	public void setAddress_line_3(String address_line_3) {
+		this.address_line_3 = address_line_3;
 	}
 
-	public void setColour(String colour) {
-		this.colour = colour;
+
+	public String getCity() {
+		return city;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+
+	public String getCounty() {
+		return county;
 	}
 
-	public Date getLastModified() {
-		return lastModified;
+
+	public void setCounty(String county) {
+		this.county = county;
 	}
 
-	public void setLastModified(Date lastModified) {
-		this.lastModified = lastModified;
+
+	public String getPostcode() {
+		return postcode;
 	}
 
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+
+	public String getCountry() {
+		return country;
+	}
+
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 	
 	

@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.saul.josh.springboot.vetProject.vetProjectApp.exception.ResourceNotFoundException;
-import com.qa.saul.josh.springboot.vetProject.vetProjectApp.model.OwnerModel;
-import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.GarageAppRepository;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.model.AddressModel;
+import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.AddressRepository;
 
 
 
@@ -26,103 +26,60 @@ import com.qa.saul.josh.springboot.vetProject.vetProjectApp.repository.GarageApp
 public class AddressController {
 	
 	@Autowired
-	GarageAppRepository Repository;
+	AddressRepository Repository;
 	
 	
-	//Method to create a vehicle
-	@PostMapping("/vehicle")
-	public OwnerModel createVehicle(@Valid @RequestBody OwnerModel mSDM) {
+	//Method to create address
+	@PostMapping("/createAddress")
+	public AddressModel createAddress(@Valid @RequestBody AddressModel mSDM) {
 		return Repository.save(mSDM);
 	}
 	
 	
-	//Method to get a vehicle
-	@GetMapping("vehicleid/{idvehicle}")
-	public OwnerModel getVehiclebyID(@PathVariable(value = "idvehicle")Long vehicleID) {
-		return Repository.findById(vehicleID).orElseThrow(()->new ResourceNotFoundException("GarageAppModel", "idvehicle",vehicleID));
-	}
-	
-	// Method get vehicles by Type
-	@GetMapping("vehicletype/{vehicletype}")
-	public List<OwnerModel> getVehicleByType(@PathVariable(value = "vehicletype")String vehicletype) {
-		return Repository.findByVehicleType(vehicletype);
-	}
-	
-	
-	// Method get vehicles by Manufacturer
-	@GetMapping("vehiclemanufacturer/{manufacturer}")
-	public List<OwnerModel> getVehicleByManufacturer(@PathVariable(value = "manufacturer")String manufacturer) {
-		return Repository.findByManufacturer(manufacturer);
+	//Method to get address
+	@GetMapping("/getAddress/{address_id}")
+	public AddressModel getAddress(@PathVariable(value = "address_id")Long address_id) {
+		return Repository.findById(address_id).orElseThrow(()->new ResourceNotFoundException("AddressModel", "address_id",address_id));
 	}
 	
 		
-		
-	// Method get vehicles by Model
-	@GetMapping("vehiclemodel/{model}")
-	public List<OwnerModel> getVehicleByModel(@PathVariable(value = "model")String model) {
-		return Repository.findByModel(model);
-	}	
-		
-		
-		
-	// Method get vehicles by Colour
-	@GetMapping("vehiclecolour/{colour}")
-	public List<OwnerModel> getVehicleByColour(@PathVariable(value = "colour")String colour) {
-		return Repository.findByColour(colour);
-	}	
-		
-		
-		
-		
-	//Method to get all vehicles
-	@GetMapping("/vehicle")
-	public List<OwnerModel> getAllVehicles(){
+	//Method to get all address
+	@GetMapping("/getAddresses")
+	public List<AddressModel> getAllAddresses(){
 		return Repository.findAll();
 	}
 	
 	
-	//Method to update a vehicle
-	@PutMapping("/vehicle/{idvehicle}")
-	public OwnerModel updateVehicle(@PathVariable(value = "idvehicle") Long vehicleID,
-			@Valid @RequestBody OwnerModel vehicleDetails) {
-		OwnerModel mSDM = Repository.findById(vehicleID).orElseThrow(()-> new ResourceNotFoundException("Vehicle","idvehicle",vehicleID));
+	//Method to update a address
+	@PutMapping("/updateAddress/{address_id}")
+	public AddressModel updateAddress(@PathVariable(value = "address_id") Long address_id,
+			@Valid @RequestBody AddressModel addressDetails) {
+		AddressModel mSDM = Repository.findById(address_id).orElseThrow(()-> new ResourceNotFoundException("Address","address_id",address_id));
 		
-		mSDM.setVehiclereg(vehicleDetails.getVehiclereg());
-		mSDM.setVehicletype(vehicleDetails.getVehicletype());
-		mSDM.setManufacturer(vehicleDetails.getManufacturer());
-		mSDM.setModel(vehicleDetails.getModel());
-		mSDM.setColour(vehicleDetails.getColour());
+		mSDM.setHouse_number(addressDetails.getHouse_number());
+		mSDM.setAddress_line_1(addressDetails.getAddress_line_1());
+		mSDM.setAddress_line_2(addressDetails.getAddress_line_2());
+		mSDM.setAddress_line_3(addressDetails.getAddress_line_3());
+		mSDM.setCity(addressDetails.getCity());
+		mSDM.setCounty(addressDetails.getCounty());
+		mSDM.setPostcode(addressDetails.getPostcode());
+		mSDM.setCountry(addressDetails.getCountry());
 		
 		
-		OwnerModel updateData = Repository.save(mSDM);
+		AddressModel updateData = Repository.save(mSDM);
 		return updateData;
 		
 	}
 	
 	
-	//Method to remove a vehicle
-	@DeleteMapping("/vehicle/{idvehicle}")
-	public ResponseEntity<?> deleteVehicle(@PathVariable(value = "idvehicle") Long vehicleID){
-		OwnerModel mSDM = Repository.findById(vehicleID).orElseThrow(()->new ResourceNotFoundException("Vehicle","idvehicle",vehicleID));
+	//Method to remove a address
+	@DeleteMapping("/deleteAddress/{address_id}")
+	public ResponseEntity<?> deleteAddress(@PathVariable(value = "address_id") Long address_id){
+		AddressModel mSDM = Repository.findById(address_id).orElseThrow(()->new ResourceNotFoundException("Address","address_id",address_id));
 		
 		
 		Repository.delete(mSDM);
 		return ResponseEntity.ok().build();
 	}
 	
-	// Method delete vehicles by Type
-	@DeleteMapping("/vehicletype/{vehicletype}")
-	public ResponseEntity<?> deleteVehicleByType(@PathVariable(value = "vehicletype") String vehicleType){
-		List<OwnerModel> mSDM = Repository.findByVehicleType(vehicleType);
-		 
-		Repository.deleteAll(mSDM);
-		return ResponseEntity.ok().build();
-	}
-	
-	//Method to remove all vehicles from the database
-	@DeleteMapping("/vehicle")
-	public ResponseEntity<?> deleteAllVehicles(){
-		Repository.deleteAll();
-		return ResponseEntity.ok().build();
-	}
 }
